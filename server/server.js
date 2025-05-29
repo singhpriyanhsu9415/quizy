@@ -13,9 +13,15 @@ const app = express()
 
 /** app middlewares */
 app.use(morgan('tiny'));
-app.use(cors());
+
 app.use(express.json());
 config();
+
+const corsOptions = {
+  origin: 'https://quizy-ruddy.vercel.app'
+};
+
+app.use(cors(corsOptions));
 
 
 /** appliation port */
