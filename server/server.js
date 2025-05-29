@@ -17,8 +17,19 @@ app.use(morgan('tiny'));
 app.use(express.json());
 config();
 
+const allowedOrigins = [
+  'https://quizy-ruddy.vercel.app',
+  'http://localhost:3001'
+];
+
 const corsOptions = {
-  origin: 'https://quizy-ruddy.vercel.app'
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 };
 
 app.use(cors(corsOptions));
